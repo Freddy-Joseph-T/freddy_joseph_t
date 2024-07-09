@@ -1,0 +1,94 @@
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    long number;
+    number = get_long("Enter the card number: ");
+
+    long temp = number;
+    int length = 0;
+    while (temp != 0)
+    {
+        temp /= 10;
+        length++;
+    }
+    // printf("The length is :%d \n", length);
+
+    int digit = 0;
+    long temp1 = number;
+    int sum = 0;
+    long concat = 0;
+    temp1 = temp1 / 10;
+    int sumtemp = 0;
+    while (temp1 > 0)
+    {
+        digit = temp1 % 10;
+        sum = sum + 2 * digit;
+        temp1 = temp1 / 100;
+        // printf("%d ,",sum);
+        if (sumtemp != sum)
+        {
+            if (sum >= 10)
+            {
+                concat = concat * 100 + 2 * digit;
+            }
+            else
+            {
+                concat = concat * 10 + 2 * digit;
+            }
+        }
+        sumtemp = sum;
+    }
+    // printf("\nthe sum is : %d",sum);
+    // printf("\nthe concat is: %ld", concat);
+
+    int sum1 = 0;
+    int digit1 = 0;
+    long temp2 = concat;
+    while (temp2 > 0)
+    {
+        digit1 = temp2 % 10;
+        sum1 += digit1;
+        temp2 = temp2 / 10;
+    }
+    // printf("\nThe sum of products' digits is : %d\n", sum1 );
+
+    long temp3 = number;
+    int digit3 = 0;
+    int sum3 = sum1;
+    while (temp3 > 0)
+    {
+        digit3 = temp3 % 10;
+        sum3 = sum3 + digit3;
+        temp3 = temp3 / 100;
+    }
+    // printf("The total sum is : %d\n", sum3);
+    long long x = 10000000000000;
+    long long y = 100000000000000;
+    if (sum3 % 10 == 0)
+    {
+        if (length == 15 && (number / (x) == 34 || number / (x) == 37))
+        {
+            printf("AMEX\n");
+        }
+        else if (length == 16 &&
+                 (number / (y) == 51 || number / (y) == 52 || number / (y) == 53 || number / (y) == 54 || number / (y) == 55))
+        {
+            printf("MASTERCARD\n");
+        }
+        else if ((length == 13 && number / (1000000000000) == 4) || (length == 16 && number / (1000000000000000) == 4))
+        {
+            printf("VISA\n");
+        }
+        else
+        {
+            printf("INVALID\n");
+        }
+    }
+
+    else
+    {
+        printf("INVALID\n");
+    }
+}
